@@ -93,14 +93,43 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Debes ingresar el ID del trabajador", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void ActualizarTrabajador(View view){
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "Produccion", null, 1);
+        SQLiteDatabase BaseDatos = admin.getWritableDatabase();
+        String id = ID_Trabajador.getText().toString();
+        String nombre = NombreTrabajador.getText().toString();
+        String cargo = CargoTrabajador.getText().toString();
+        if(!nombre.isEmpty() || !cargo.isEmpty()){
+            ContentValues datos = new ContentValues();
+            datos.put("NombreTrabajador",nombre);
+            datos.put("CargoTrabajador",cargo);
+            int cantidad = BaseDatos.update("Trabajadores",datos,"ID_Usuario="+id,null);
+            if(cantidad != 0){
+                Toast.makeText(this, "La actualizacion se realizo correctamente", Toast.LENGTH_SHORT).show();
+                ID_Trabajador.setText("");
+                NombreTrabajador.setText("");
+                CargoTrabajador.setText("");
+                CargaTrabajadores();
+            }else{
+                Toast.makeText(this, "Hubo un error al actualizar", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(this, "Debes ingresar el ID del trabajador", Toast.LENGTH_SHORT).show();
+        }
+    }
     public void EliminarTrabajador(View view){
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "Produccion", null, 1);
         SQLiteDatabase BaseDatos = admin.getWritableDatabase();
         String id = ID_Trabajador.getText().toString();
         if(!id.isEmpty()){
-            Cursor fila = BaseDatos.rawQuery("DELETE From Trabajadores WHERE ID_Usuario = "+id,null);
-            if(fila.moveToFirst()){
-                BaseDatos.delete("Trabajadores","ID_Trabajador="+id,null);
+            int cantidad = BaseDatos.delete("Trabajadores","ID_Usuario="+id,null);
+            if(cantidad != 0){
+                Toast.makeText(this, "Usuario eliminado correctamente", Toast.LENGTH_SHORT).show();
+                CargaTrabajadores();
+                ID_Trabajador.setText("");
+                NombreTrabajador.setText("");
+                CargoTrabajador.setText("");
             }else{
                 Toast.makeText(this, "El ID: "+id+" no se encuentra dentro de la base de datos", Toast.LENGTH_SHORT).show();
                 ID_Trabajador.setText("");
