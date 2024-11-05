@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="415dp"
+        android:layout_height="642dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-3dp">
+
+        <EditText
+            android:id="@+id/txtID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ingrese ID trabajador"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/txtNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ingrese nombre trabajador"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/txtCargo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ingrese  cargo trabajador"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/btnRegistrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="CrearTrabajador"
+            android:text="Registrar trabajador" />
+
+        <Button
+            android:id="@+id/btnActualizar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actualizar trabajador" />
+
+        <Button
+            android:id="@+id/btnBuscar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="BuscarTrabajador"
+            android:text="Buscar trabajador" />
+
+        <Button
+            android:id="@+id/btnEliminar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Eliminar trabajador" />
+
+        <ListView
+            android:id="@+id/ListaTrabajadores"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
