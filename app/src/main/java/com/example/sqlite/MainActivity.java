@@ -93,12 +93,12 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Debes ingresar el ID del trabajador", Toast.LENGTH_SHORT).show();
         }
     }
-    public void EliminarTrabajador(View view){
+    public void EliminarTrabajador(){
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "Produccion", null, 1);
         SQLiteDatabase BaseDatos = admin.getWritableDatabase();
         String id = ID_Trabajador.getText().toString();
         if(!id.isEmpty()){
-            Cursor fila = BaseDatos.rawQuery("SELECT ID_Usuario, NombreTrabajador, CargoTrabajador From Trabajadores WHERE ID_Usuario = "+id,null);
+            Cursor fila = BaseDatos.rawQuery("DELETE From Trabajadores WHERE ID_Usuario = "+id,null);
             if(fila.moveToFirst()){
                 BaseDatos.delete("Trabajadores","ID_Trabajador="+id,null);
             }else{
