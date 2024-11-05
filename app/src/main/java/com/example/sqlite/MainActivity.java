@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
             Cursor fila = BaseDatos.rawQuery("SELECT NombreTrabajador, CargoTrabajador From Trabajadores WHERE ID_Usuario = "+id,null);
             if(fila.moveToFirst()){
                 do{
-                    NombreTrabajador.setText(fila.getString(1));
-                    CargoTrabajador.setText(fila.getString(2));
+                    NombreTrabajador.setText(fila.getString(0));
+                    CargoTrabajador.setText(fila.getString(1));
                 }while (fila.moveToNext());
             }else{
                 Toast.makeText(this, "El ID: "+id+" no se encuentra dentro de la base de datos", Toast.LENGTH_SHORT).show();
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Debes ingresar el ID del trabajador", Toast.LENGTH_SHORT).show();
         }
     }
-    public void EliminarTrabajador(){
+    public void EliminarTrabajador(View view){
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "Produccion", null, 1);
         SQLiteDatabase BaseDatos = admin.getWritableDatabase();
         String id = ID_Trabajador.getText().toString();
