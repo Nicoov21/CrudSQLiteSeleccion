@@ -53,18 +53,18 @@
             android:text="Actualizar trabajador" />
 
         <Button
-            android:id="@+id/btnBuscar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="BuscarTrabajador"
-            android:text="Buscar trabajador" />
-
-        <Button
             android:id="@+id/btnEliminar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="EliminarTrabajador"
             android:text="Eliminar trabajador" />
+
+        <Button
+            android:id="@+id/btnVaciar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="VaciarCampos"
+            android:text="Vaciar campos" />
 
         <ListView
             android:id="@+id/ListaTrabajadores"

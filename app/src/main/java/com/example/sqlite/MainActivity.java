@@ -71,17 +71,24 @@ public class MainActivity extends AppCompatActivity {
         BaseDatos.close();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, ListaUsuarios);
         Lista.setAdapter(adapter);
+
+        Lista.setOnItemClickListener((adapterView, view, i, l) -> {//Metodo de click en la lista
+            String seleccion = ListaUsuarios.get(i);//Posicion de la seleccion
+            String idseleccionado = seleccion.split(",")[0].split(":")[1].trim();//Toma el id seleccionado
+            BuscarTrabajador(idseleccionado);
+        });
     }
-    public void BuscarTrabajador(View view){
+    public void BuscarTrabajador(String id){
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "Produccion", null, 1);
         SQLiteDatabase BaseDatos = admin.getWritableDatabase();
-        String id = ID_Trabajador.getText().toString();
         if(!id.isEmpty()){
-            Cursor fila = BaseDatos.rawQuery("SELECT NombreTrabajador, CargoTrabajador From Trabajadores WHERE ID_Usuario = "+id,null);
+            Cursor fila = BaseDatos.rawQuery("SELECT ID_Usuario,NombreTrabajador, CargoTrabajador From Trabajadores WHERE ID_Usuario = "+id,null);
             if(fila.moveToFirst()){
+                ID_Trabajador.setEnabled(false);
                 do{
-                    NombreTrabajador.setText(fila.getString(0));
-                    CargoTrabajador.setText(fila.getString(1));
+                    ID_Trabajador.setText(fila.getString(0));
+                    NombreTrabajador.setText(fila.getString(1));
+                    CargoTrabajador.setText(fila.getString(2));
                 }while (fila.moveToNext());
             }else{
                 Toast.makeText(this, "El ID: "+id+" no se encuentra dentro de la base de datos", Toast.LENGTH_SHORT).show();
@@ -139,5 +146,10 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Debes ingresar el ID del trabajador", Toast.LENGTH_SHORT).show();
         }
+    }
+    public void VaciarCampos(View view){
+        ID_Trabajador.setText("");
+        NombreTrabajador.setText("");
+        CargoTrabajador.setText("");
     }
 }
